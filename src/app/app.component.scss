@@ -1,0 +1,16 @@
+.root {
+  display: flex;
+  width: 700px;
+  margin: 0 auto;
+}
+
+.tree {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  max-height: 100vh;
+  min-height: 200px;
+  overflow: scroll;
+  margin-right: 8px;
+  margin-top: 15px;
+}

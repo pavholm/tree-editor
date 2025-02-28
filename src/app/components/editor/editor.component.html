@@ -1,0 +1,38 @@
+<div class="root">
+  <ng-container *ngIf="node; else emptyState">
+    <form [formGroup]="editGroup" class="form">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ isFolderNode(node) ? 'Folder' : 'File' }} name</mat-label>
+        <input
+          id="name"
+          type="text"
+          matInput
+          placeholder=""
+          formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Select an icon</mat-label>
+        <mat-select formControlName="icon">
+          <mat-option
+            *ngFor="let icon of ['home', 'star', 'favorite', 'settings']"
+            [value]="icon">
+            <mat-icon>{{ icon }}</mat-icon>
+            {{ icon }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+
+    <button
+      class="save-button"
+      mat-raised-button
+      color="primary"
+      [disabled]="editGroup.invalid"
+      (click)="saveForm()">
+      Submit
+    </button>
+  </ng-container>
+</div>
+
+<ng-template #emptyState>Choose node to edit</ng-template>

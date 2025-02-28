@@ -1,0 +1,47 @@
+<div class="node" (click)="selectNode($event, node.id)">
+  <ng-container *ngIf="isFolderNode(node); else fileTemplate">
+    <div class="folder">
+      <div
+        class="folder-header"
+        [class.-selected]="treeService.selectedNodeId.getValue() === node.id">
+        <div class="folder-title">
+          <span class="folder-icon">📁</span>
+          <mat-icon class="icon" [fontIcon]="node.icon"></mat-icon>
+          <span class="folder-name">{{ node.name }}</span>
+        </div>
+
+        <div class="folder-actions">
+          <mat-icon
+            class="icon"
+            [fontIcon]="'edit'"
+            (click)="editNode($event, node)"></mat-icon>
+
+          <mat-icon
+            class="icon"
+            [fontIcon]="'file_copy'"
+            (click)="addRandomFiles($event, node.id)"></mat-icon>
+
+          <mat-icon
+            class="icon"
+            [fontIcon]="'create_new_folder'"
+            (click)="addRandomFolders($event, node.id)"></mat-icon>
+        </div>
+      </div>
+
+      <tree
+        class="drop-list-container"
+        *ngFor="let child of node.children"
+        [node]="child"></tree>
+    </div>
+  </ng-container>
+
+  <ng-template #fileTemplate>
+    <div
+      class="file"
+      [class.-selected]="treeService.selectedNodeId.getValue() === node.id">
+      <span class="file-icon">📄</span>
+      <mat-icon class="icon" [fontIcon]="node.icon"></mat-icon>
+      <span class="file-name">{{ node.name }}</span>
+    </div>
+  </ng-template>
+</div>
