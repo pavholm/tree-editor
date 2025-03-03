@@ -89,6 +89,8 @@ export class TreeComponent implements AfterViewInit {
   }
 
   onDrop(event: DragEvent, node: Tree) {
+    event.stopPropagation();
+
     if (!event.dataTransfer) {
       return;
     }
