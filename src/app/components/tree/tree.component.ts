@@ -57,6 +57,14 @@ export class TreeComponent implements AfterViewInit {
       return;
     }
 
+    const nodeTitleClass = isFolderNode(node) ? '.folder-title' : '.file-title';
+    const previewElement =
+      this.nodeRef.nativeElement.querySelector(nodeTitleClass);
+
+    if (previewElement) {
+      event.dataTransfer.setDragImage(previewElement, 0, 0);
+    }
+
     event.dataTransfer.effectAllowed = event.shiftKey ? 'copy' : 'move';
     event.dataTransfer.setData(DRAG_DATA_KEY, node.id);
   }
