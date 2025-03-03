@@ -1,9 +1,15 @@
-<div class="node" (click)="selectNode($event, node.id)">
+<div
+  #nodeRef
+  class="node"
+  [class.drag-over]="isDraggingOverNode$ | async"
+  [draggable]="true"
+  (dragstart)="onDragStart($event, node)"
+  (dragover)="onDragOver($event, node)"
+  (dragleave)="onDragLeave(node)"
+  (drop)="onDrop($event, node)">
   <ng-container *ngIf="isFolderNode(node); else fileTemplate">
     <div class="folder">
-      <div
-        class="folder-header"
-        [class.-selected]="treeService.selectedNodeId.getValue() === node.id">
+      <div class="folder-header">
         <div class="folder-title">
           <span class="folder-icon">📁</span>
           <mat-icon class="icon" [fontIcon]="node.icon"></mat-icon>
@@ -36,9 +42,7 @@
   </ng-container>
 
   <ng-template #fileTemplate>
-    <div
-      class="file"
-      [class.-selected]="treeService.selectedNodeId.getValue() === node.id">
+    <div class="file">
       <div class="file-header">
         <div class="file-title">
           <span class="file-icon">📄</span>

@@ -2,6 +2,11 @@
   user-select: none;
 }
 
+.drag-over {
+  background-color: rgba(0, 0, 0, 0.1);
+  outline: 1px grey dashed;
+}
+
 .folder {
   margin-bottom: 0;
 }

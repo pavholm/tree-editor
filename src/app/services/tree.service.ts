@@ -31,42 +31,10 @@ export class TreeService {
   private selectedForEditingNode = new BehaviorSubject<Tree | null>(null);
   selectedForEditingNode$ = this.selectedForEditingNode.asObservable();
 
-  selectedNodeId = new BehaviorSubject<string | null>(null);
-
   constructor() {}
 
   selectForEditing(node: Tree) {
     this.selectedForEditingNode.next(node);
-  }
-
-  handleMovingClick(id: string, isCopying = false) {
-    if (!this.selectedNodeId.getValue()) {
-      this.selectedNodeId.next(id);
-      return;
-    }
-
-    if (
-      this.selectedNodeId.getValue() &&
-      this.selectedNodeId.getValue() === id
-    ) {
-      this.selectedNodeId.next(null);
-      return;
-    }
-
-    if (
-      this.selectedNodeId.getValue() &&
-      this.findNodeById(id)?.type === 'file'
-    ) {
-      return;
-    }
-
-    if (isCopying) {
-      this.copyNode(this.selectedNodeId.getValue()!, id);
-    } else {
-      this.moveNode(this.selectedNodeId.getValue()!, id);
-    }
-
-    this.selectedNodeId.next(null);
   }
 
   addRandomFolders(parentNodeId: string) {
@@ -114,13 +82,13 @@ export class TreeService {
     const updatedTree = this.removeNodeById(nodeId);
     const newParentNode = this.findNodeById(newParentId);
 
-    if (isAloneTopLevel(currentTree, nodeId)) {
-      alert('Last root element');
+    if (isParentOfChildNode(currentTree, nodeId, newParentId)) {
+      alert('Cannot move folder into own child');
       return;
     }
 
-    if (isParentOfChildNode(currentTree, nodeId, newParentId)) {
-      alert('Own children');
+    if (isAloneTopLevel(currentTree, nodeId)) {
+      alert('Last root folder');
       return;
     }
 
