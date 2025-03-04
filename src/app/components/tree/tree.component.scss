@@ -125,6 +125,12 @@
   .file:hover & {
     opacity: 1;
   }
+
+  & > .icon {
+    &:hover {
+      color: black;
+    }
+  }
 }
 
 .drop-list-container {
