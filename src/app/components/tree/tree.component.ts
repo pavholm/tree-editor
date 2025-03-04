@@ -97,10 +97,12 @@ export class TreeComponent implements AfterViewInit {
 
     const targetNodeId = event.dataTransfer.getData(DRAG_DATA_KEY);
 
-    if (event.shiftKey) {
-      this.treeService.copyNode(targetNodeId, node.id);
-    } else {
-      this.treeService.moveNode(targetNodeId, node.id);
+    if (targetNodeId !== node.id) {
+      if (event.shiftKey) {
+        this.treeService.copyNode(targetNodeId, node.id);
+      } else {
+        this.treeService.moveNode(targetNodeId, node.id);
+      }
     }
 
     event.dataTransfer.clearData(DRAG_DATA_KEY);
