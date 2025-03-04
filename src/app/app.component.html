@@ -1,5 +1,7 @@
 <div *ngIf="tree$ | async as tree" class="root">
-  <tree class="tree" *ngFor="let node of tree$ | async" [node]="node"></tree>
+  <div #treeRef class="tree">
+    <tree *ngFor="let node of tree$ | async" [node]="node"></tree>
+  </div>
 
   <editor [node]="selectedForEditingNode$ | async"></editor>
 </div>
